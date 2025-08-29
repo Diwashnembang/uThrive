@@ -6,7 +6,6 @@
 
 generator client {
   provider = "prisma-client-js"
-  output   = "../src/generated/prisma"
 }
 
 datasource db {
@@ -18,13 +17,17 @@ model User {
   id        Int      @id @default(autoincrement())
   name      String
   email     String   @unique
+  password String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  confirmedEvents Event[] 
 }
 
 model admin{
   id Int @id @default(autoincrement())
   name String
+  email String @unique
+  password String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -32,6 +35,12 @@ model admin{
 model ServiceProvider {
   id        Int      @id @default(autoincrement())
   name      String
+  businessName String?
+  password  String
+  email    String   @unique
+  description String?
+  phone     String?
+  address   String?
   event      Event[]
   approved  Boolean @default(false)
   createdAt DateTime @default(now())
@@ -42,17 +51,23 @@ model Admin{
   id        Int      @id @default(autoincrement())
   name      String
   email     String   @unique
+  password  String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
 model Event {
   id        Int      @id @default(autoincrement())
-  title     String
-  content   String?
+  Name     String
+  description   String?
+  date      DateTime
+  location  String
+  maxParticipants Int @default(0)
+  currentParticipants Int @default(0)
   serviceProviderId  Int
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   serviceProvider    ServiceProvider     @relation(fields: [serviceProviderId], references: [id])
+  ConfirmedUsers  User[]
 }
 
