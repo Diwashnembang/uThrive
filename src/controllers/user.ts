@@ -64,12 +64,6 @@ export class usersController {
     
     async getEvents(req: CustomRequest, res: Response) {
         try {
-            const userId: string | undefined = req.userId;
-            console.log("User ID from token:", userId);
-            if (!userId) {
-                res.status(400).json({ error: "User ID is required." });
-                return;
-            }
             const events: Event[] = await getAllEvents();
             res.status(200).json({ events });
         }catch (error) {
