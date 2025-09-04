@@ -20,7 +20,7 @@ userRouter.post("/signup", userController.signUp);
 userRouter.post("/login", userController.login);
 userRouter.post("/joinEvent",isAuth, userController.joinEvent);
 userRouter.post("/leaveEvent",isAuth, userController.unregisterFromEvent);
-userRouter.get("/allEvents",isAuth, userController.getEvents);
+userRouter.get("/allEvents", userController.getEvents);
 
 
 adminRouter.get("/unapprovedServiceProviders",isAuth,isAdmin, adminsController.getAllunapprovedServiceProviders);
